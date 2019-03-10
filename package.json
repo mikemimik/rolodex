@@ -6,8 +6,14 @@
   "scripts": {
     "init": "node scripts/init.js",
     "postinit": "echo 'change this to npm run git:remote:set'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "semistandard"
+    "lint": "semistandard",
+    "server:start": "pm2 start process.config.js",
+    "server:stop": "pm2 delete process.config.js",
+    "server:logs": "pm2 logs /api/ --lines 10",
+    "client:start": "react-scripts start",
+    "client:build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -22,10 +28,26 @@
   "homepage": "https://github.com/HackerYou/con-ed-full-stack-student-notes#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "eslint": "^5.12.0",
     "express": "^4.16.4",
-    "init-package-json": "^1.10.3"
+    "init-package-json": "^1.10.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-scripts": "2.1.8"
   },
   "devDependencies": {
+    "pm2": "^3.3.1",
     "semistandard": "github:mikemimik/semistandard"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "semistandard": {
+    "ignore": [
+      "build/**"
+    ]
   }
 }
