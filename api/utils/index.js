@@ -6,9 +6,11 @@ exports.applyMiddleware = (middlewareWrapper, router) => {
   }
 };
 
-exports.appleRoutes = (routes, router) => {
-  for (const route of routes) {
-    const { method, path, handler } = route;
-    router[method](path, handler);
-  }
-};
+// NOTE: More advanced boilerplate pattern
+//
+// exports.appleRoutes = (routes, router) => {
+//   for (const route of routes) {
+//     const { method, path, handler } = route;
+//     router[method](path, handler);
+//   }
+// };
