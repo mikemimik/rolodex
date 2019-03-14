@@ -18,6 +18,7 @@ router.route('/')
       });
 
       // Note: also acceptable
+      //
       // res.json({
       //   data: books,
       // });
@@ -30,13 +31,17 @@ router.route('/')
 // GET /books/uuid
 router.route('/:id')
   .get(async (req, res, next) => {
+    // 1. Get book ID from params object
     const { id } = req.params;
     try {
+      // 2. Fetch specific book
       const book = await bookService.getBook(id);
+      // 3. Respond with book
       res.status(200).send({
         data: [book],
       });
     } catch (e) {
+      // 4. If error, send to the error handler
       next(e);
     }
   });
@@ -44,20 +49,17 @@ router.route('/:id')
 // POST /books/
 router.route('/')
   .post(async (req, res, next) => {
-    // 1. Get data from request
+    // 1. Get data from request body
     const { bookData } = req.body;
-    // 2. Create a book instance
-    const book = new Book(bookData);
-
     try {
-      // 3. Save book to database
-      const doc = await book.save();
-      // 4. Responed with created book
-      res.status(201).send({
-        data: [doc],
+      // 2. Create book from data
+      const book = await bookService.createBook(bookData);
+      // 3. Respond with created book
+      res.status(200).send({
+        data: [book]
       });
     } catch (e) {
-      // 5. If error, send to the error handler
+      // 4. If error, send to the error handler
       next(e);
     }
   });
