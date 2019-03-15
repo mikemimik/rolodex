@@ -4,7 +4,6 @@ const express = require('express');
 const router = express.Router();
 
 const bookService = require('./bookService');
-const Book = require('./bookModel');
 
 // GET /books/
 router.route('/')
@@ -56,7 +55,7 @@ router.route('/')
       const book = await bookService.createBook(bookData);
       // 3. Respond with created book
       res.status(200).send({
-        data: [book]
+        data: [book],
       });
     } catch (e) {
       // 4. If error, send to the error handler
