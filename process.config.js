@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'api',
       script: './api/server.js',
-      watch: true,
+      watch: ['api'],
       env: {
         'NODE_ENV': 'development',
         'PORT': 4000,
