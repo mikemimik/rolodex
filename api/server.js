@@ -35,5 +35,8 @@ const server = http.createServer(router);
 // 10. Start server
 server.listen(PORT, () => {
   console.log(`Server is running on PORT:${PORT}`);
-  process.send('ready');
+  if (process.send) {
+    // NOTE: process is being run by pm2
+    process.send('ready');
+  }
 });
