@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "init": "node scripts/init.js",
-    "postinit": "echo 'change this to npm run git:remote:set'",
+    "postinit": "npm run git:remote:set",
     "lint": "semistandard",
     "test": "react-scripts test",
     "start:server": "pm2 start process.config.js",
@@ -44,6 +44,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "proxy": "http://localhost:4000",
   "semistandard": {
     "ignore": [
       "build/**"
