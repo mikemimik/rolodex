@@ -25,7 +25,7 @@ exports.scripts = (cb) => {
   const { package: { scripts: currentScripts }, context } = this;
   const { username, repository } = context;
   const scripts = {
-    'git:remote:set': `git remote set-url https://github.com/${username}/${repository}.git`,
+    'git:remote:set': `git remote set-url origin git@github.com:${username}/${repository}.git`,
   };
 
   // Remove inital scripts
