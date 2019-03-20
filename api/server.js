@@ -24,7 +24,7 @@ const { PORT } = require('./utils/constants');
 applyMiddleware(middleWare, router);
 
 // 7. Utilise routes
-router.use('/books', bookRoutes);
+router.use('/api/books', bookRoutes);
 
 // 8. Apply error handling middleware (meaningfully last)
 applyMiddleware(errorHandlers, router);
