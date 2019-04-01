@@ -1,37 +1,39 @@
 {
-  "name": "hackeryou-fullstack-project",
+  "name": "rolodex",
   "version": "1.0.0",
   "description": "HackerYou Fullstack Masterclass Project",
   "main": "index.js",
   "scripts": {
-    "init": "node scripts/init.js",
-    "postinit": "npm run git:remote:set",
     "lint": "semistandard",
     "test": "react-scripts test",
     "start:server": "pm2 start process.config.js",
     "stop:server": "pm2 delete process.config.js",
     "logs:server": "pm2 logs /api/ --lines 10",
     "start:client": "react-scripts start",
-    "build:client": "react-scripts build"
+    "build:client": "react-scripts build",
+    "git:remote:set": "git remote set-url origin git@github.com:mikemimik/rolodex.git"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HackerYou/con-ed-full-stack-student-notes.git"
+    "url": "git+https://github.com/mikemimik/rolodex.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Michael Perrotte",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HackerYou/con-ed-full-stack-student-notes/issues"
   },
   "homepage": "https://github.com/HackerYou/con-ed-full-stack-student-notes#readme",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "body-parser": "^1.18.3",
     "eslint": "^5.12.0",
     "express": "^4.16.4",
     "init-package-json": "^1.10.3",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-router-dom": "^5.0.0"
   },
   "devDependencies": {
     "hackeryou-fullstack-react-scripts": "2.3.0",
