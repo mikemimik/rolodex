@@ -27,48 +27,39 @@ const styles = (theme) => ({
 });
 
 class Cohorts extends PureComponent {
-  state = {
-    cohorts: [
-      {
-        year: 2019,
-        cohort: 'winter',
-        program: 'full-stack-master-class',
-        students: [
-          { firstName: 'bob' },
-        ],
-      },
-      {
-        year: 2019,
-        cohort: 'spring',
-        program: 'full-stack-master-class',
-        students: [
-          { firstName: 'bob' },
-          { firstName: 'wendy' },
-        ],
-      },
-      {
-        year: 2019,
-        cohort: 'summer',
-        program: 'full-stack-master-class',
-        students: [
-          { firstName: 'bob' },
-        ],
-      },
-      {
-        year: 2019,
-        cohort: 'fall',
-        program: 'full-stack-master-class',
-        students: [],
-      },
-    ]
-  };
+
+  handleFetchCohorts = async () => {
+    console.group('Cohorts::handleFetchCohorts');
+    try {
+      const response = await fetch('/api/cohorts');
+      const cohorts = await response.json();
+      console.log('cohorts:', cohorts.data);
+      this.props.onFetchCohorts(cohorts.data);
+      console.groupEnd();
+    } catch (e) {
+      console.error(e);
+      console.groupEnd();
+    }
+
+  }
+
+  componentDidMount() {
+    console.group('Cohorts::componentDidMount');
+    this.handleFetchCohorts();
+    console.groupEnd();
+  }
+
+  componentWillUnmount() {
+    console.group('Cohorts::componentWillUnmount');
+    console.groupEnd();
+  }
 
   render () {
-    const { classes } = this.props;
+    const { classes, cohorts } = this.props;
     return (
       <List>
         {
-          this.state.cohorts.map((cohort) => {
+          cohorts.map((cohort) => {
             return (
               <ListItem
                 button
