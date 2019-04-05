@@ -17,22 +17,17 @@ import {
 } from '@material-ui/icons';
 
 class Header extends PureComponent {
-  state = {
-    value: 'view',
-  };
-
-  handleTabChange = (event, value) => {
-    console.log('event:', event);
-    console.log('value:', value);
-    this.setState({ value });
-  }
-
   render () {
+    const {
+      currentView,
+      handleTabChange,
+    } = this.props;
+
     return (
       <AppBar position='static' color='default'>
         <Tabs
-          value={this.state.value}
-          onChange={this.handleTabChange}
+          value={currentView}
+          onChange={handleTabChange}
           indicatorColor='primary'
           textColor='primary'
           centered
