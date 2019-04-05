@@ -10,14 +10,12 @@ const { applyMiddleware } = require('./utils');
 const middleWare = require('./middleware');
 const errorHandlers = require('./middleware/errorHandlers');
 
-const { router: bookRoutes } = require('./routes/books/bookRoutes');
 const { router: cohortRoutes } = require('./routes/cohorts/cohortRoutes');
 
 const { PORT, URL } = require('./utils/constants');
 
 applyMiddleware(middleWare, router);
 
-router.use('/api/books', bookRoutes);
 router.use('/api/cohorts', cohortRoutes);
 
 applyMiddleware(errorHandlers, router);
