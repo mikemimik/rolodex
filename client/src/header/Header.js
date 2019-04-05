@@ -8,13 +8,17 @@ import {
   Tabs,
   Tab,
 } from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/Phone';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import PersonPinIcon from '@material-ui/icons/PersonPin';
+import {
+  Phone as PhoneIcon,
+  Favorite as FavoriteIcon,
+  PersonPin as PersonPinIcon,
+  ChromeReaderMode as ReaderIcon,
+  AddCircle as AddCircleIcon,
+} from '@material-ui/icons';
 
 class Header extends PureComponent {
   state = {
-    value: null,
+    value: 'view',
   };
 
   handleTabChange = (event, value) => {
@@ -33,8 +37,8 @@ class Header extends PureComponent {
           textColor='primary'
           centered
         >
-          <Tab label='Item One' value='one' icon={<PhoneIcon />} />
-          <Tab label='Item Two' value='two' icon={<FavoriteIcon />} />
+          <Tab label='View Cohorts' value='view' icon={<ReaderIcon />} />
+          <Tab label='Add Cohort' value='create' icon={<AddCircleIcon />} />
           <Tab label='Item Three' value='three' icon={<PersonPinIcon />} />
         </Tabs>
       </AppBar>
