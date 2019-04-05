@@ -9,6 +9,7 @@ const projectSchema = exports.schema = new Schema({
   title: String,
   description: String,
   url: String,
+  // NOTE(mperrotte): this creates a circular dependency to studentModel.js
   // student: studentSchema,
 });
 
