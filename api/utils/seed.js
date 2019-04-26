@@ -3,11 +3,13 @@
 const { model: Cohort } = require('../routes/cohorts/cohortModel');
 const { model: Student } = require('../routes/students/studentModel');
 const { model: Project } = require('../routes/projects/projectModel');
+const { model: User } = require('../routes/users/userModel');
 
 exports.truncate = async () => {
   await Cohort.deleteMany();
   await Student.deleteMany();
   await Project.deleteMany();
+  await User.deleteMany();
 };
 
 exports.seed = async () => {
@@ -17,7 +19,7 @@ exports.seed = async () => {
         title: 'rolodex',
         description: 'A tool used to track students I teach and the projects that they create.',
         url: '',
-      }
+      },
     ];
     const projectPromises = projectData.map(async (data) => {
       try {
@@ -35,7 +37,7 @@ exports.seed = async () => {
         lastName: 'Perrotte',
         avatar: '',
         projects,
-      }
+      },
     ];
     const studentPromises = studentData.map(async (data) => {
       try {
@@ -53,7 +55,7 @@ exports.seed = async () => {
         cohort: 'winter',
         program: 'full-stack-master-class',
         students,
-      }
+      },
     ];
     const cohortPromises = cohortData.map(async (data) => {
       try {
@@ -63,7 +65,23 @@ exports.seed = async () => {
         throw e;
       }
     });
-    const cohorts = await Promise.all(cohortPromises);
+    await Promise.all(cohortPromises);
+
+    const userData = [
+      {
+        email: 'test@test.com',
+        password: 'testing',
+      },
+    ];
+    const userPromises = userData.map(async (data) => {
+      try {
+        const user = new User(data);
+        return await user.save();
+      } catch (e) {
+        throw e;
+      }
+    });
+    await Promise.all(userPromises);
 
     console.log('Seeding completed.');
   } catch (e) {
