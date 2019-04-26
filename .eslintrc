@@ -1,0 +1,10 @@
+{
+  "extends": [ "semistandard-react" ],
+  "rules": {
+    "comma-dangle": [ "error", "always-multiline" ]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
