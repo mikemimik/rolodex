@@ -3,7 +3,11 @@
 const { model: Cohort } = require('./cohortModel');
 
 exports.listCohorts = async () => {
-  return await Cohort.find({});
+  try {
+    return await Cohort.find({});
+  } catch (e) {
+    throw e;
+  }
 };
 
 exports.createCohort = async (cohortData) => {

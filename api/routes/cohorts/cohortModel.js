@@ -17,7 +17,13 @@ const cohortSchema = exports.schema = new Schema({
     ]
   },
   program: String,
-  students: [studentSchema],
+  // students: [studentSchema],
+  students: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Students'
+    }
+  ],
 });
 
 
