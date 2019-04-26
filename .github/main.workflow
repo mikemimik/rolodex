@@ -1,6 +1,6 @@
 workflow "linting" {
   on = "push"
-  resolves = ["\tdocker://node:alpine"]
+  resolves = ["yarn lint"]
 }
 
 action "yarn install" {
@@ -9,7 +9,7 @@ action "yarn install" {
   args = "install"
 }
 
-action "\tdocker://node:alpine" {
-  uses = "\tdocker://node:alpine"
+action "yarn lint" {
+  uses = "docker://node:alpine"
   needs = ["yarn install"]
 }
