@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "node api/server.js",
+    "build": "yarn run build:client && yarn run move:client",
     "lint": "eslint .",
     "test": "react-scripts test",
     "start:server": "pm2 start process.config.js",
@@ -12,6 +13,7 @@
     "logs:server": "pm2 logs /api/ --lines 10",
     "start:client": "react-scripts start",
     "build:client": "react-scripts build",
+    "move:client": "cp -R build/ public",
     "git:remote:set": "git remote set-url origin git@github.com:mikemimik/rolodex.git"
   },
   "repository": {
@@ -24,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/HackerYou/con-ed-full-stack-student-notes/issues"
   },
-  "homepage": "https://github.com/HackerYou/con-ed-full-stack-student-notes#readme",
+  "homepage": "https://mikemimik-rolodex.herokuapp.com",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
