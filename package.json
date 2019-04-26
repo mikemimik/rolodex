@@ -4,6 +4,7 @@
   "description": "HackerYou Fullstack Masterclass Project",
   "main": "index.js",
   "scripts": {
+    "deploy": "node api/server.js",
     "lint": "eslint .",
     "test": "react-scripts test",
     "start:server": "pm2 start process.config.js",
