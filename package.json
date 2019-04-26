@@ -40,6 +40,10 @@
     "react-router-dom": "^5.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-semistandard-react": "^4.2.0",
+    "eslint-plugin-semistandard-react": "^4.1.0",
     "hackeryou-fullstack-react-scripts": "2.3.0",
     "pm2": "^3.5.0"
   },
