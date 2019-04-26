@@ -1,16 +1,22 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
 import {
   uniqBy,
 } from 'lodash';
 
-import { withStyles } from '@material-ui/core/styles';
+import Cohorts from './cohort/Cohorts';
+import { CohortTabs, handleTabChange } from './cohort/CohortTabs';
+import Header from './Header';
+import Page from './Page';
 
-import Header from '../header/Header';
-import Cohorts from '../cohort/Cohorts';
+const styles = (theme) => ({
+  root: {},
+});
 
-class App extends Component {
+class Dashboard extends Component {
   state = {
-    currentView: 'view',
     cohorts: [],
     cohortsById: {},
   };
@@ -33,29 +39,32 @@ class App extends Component {
     });
   }
 
-  handleTabChange = (event, value) => {
-    this.setState({
-      currentView: value,
-    });
-  }
+  renderHeader = (props) => (
+    <Header
+      currentView={'view'}
+      handleTabChange={handleTabChange}
+      tabs={CohortTabs}
+      {...props}
+    />
+  )
 
   render () {
     return (
-      <Fragment>
-        <Header
-          currentView={this.state.currentView}
-          handleTabChange={this.handleTabChange}
-        />
-        {
-          this.state.currentView === 'view' &&
+      <>
+        {this.renderHeader(this.props)}
+        <Page title='Cohorts'>
           <Cohorts
             cohorts={this.state.cohorts}
             onFetchCohorts={this.onFetchCohorts}
           />
-        }
-      </Fragment>
+        </Page>
+      </>
     );
   }
 }
 
-export default App;
+Dashboard.propTypes = {
+  history: PropTypes.object,
+};
+
+export default withStyles(styles)(Dashboard);

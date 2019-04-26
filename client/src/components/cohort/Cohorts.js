@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import {
@@ -17,6 +17,8 @@ import {
   Person as PersonIcon,
 } from '@material-ui/icons';
 
+import { getToken } from '../../services/tokenService';
+
 const styles = (theme) => ({
   margin: {
     margin: theme.spacing.unit * 2,
@@ -27,11 +29,15 @@ const styles = (theme) => ({
 });
 
 class Cohorts extends PureComponent {
-
   handleFetchCohorts = async () => {
     console.group('Cohorts::handleFetchCohorts');
     try {
-      const response = await fetch('/api/cohorts');
+      const token = getToken();
+      const response = await fetch('/api/cohorts', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
       const cohorts = await response.json();
       console.log('cohorts:', cohorts.data);
       this.props.onFetchCohorts(cohorts.data);
@@ -40,16 +46,15 @@ class Cohorts extends PureComponent {
       console.error(e);
       console.groupEnd();
     }
-
   }
 
-  componentDidMount() {
+  componentDidMount () {
     console.group('Cohorts::componentDidMount');
     this.handleFetchCohorts();
     console.groupEnd();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     console.group('Cohorts::componentWillUnmount');
     console.groupEnd();
   }
@@ -104,5 +109,11 @@ class Cohorts extends PureComponent {
     );
   }
 }
+
+Cohorts.propTypes = {
+  classes: PropTypes.object,
+  cohorts: PropTypes.arrayOf(PropTypes.object),
+  onFetchCohorts: PropTypes.func,
+};
 
 export default withStyles(styles)(Cohorts);
