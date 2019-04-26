@@ -12,7 +12,6 @@ const errorHandlers = require('./middleware/errorHandlers');
 
 const { router: cohortRoutes } = require('./routes/cohorts/cohortRoutes');
 const { router: userRoutes } = require('./routes/users/userRoutes');
-// $2a$10$AkuCDUQKViI1Np0c2yDO9O6OHZJh06EBzmM0vqrnC0vusJAqCwGs6
 const { PORT, URL } = require('./utils/constants');
 
 applyMiddleware(middleWare, router);
