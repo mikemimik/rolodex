@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
     next(new HTTP401Error());
   } else {
     try {
+      /* eslint-disable-next-line */
       const [prefix, token] = authHeader.split(' ');
       const decoded = await tokenService.verifyToken(token);
 

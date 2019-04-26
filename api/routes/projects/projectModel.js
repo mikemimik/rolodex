@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const { schema: studentSchema } = require('../students/studentModel');
+// const { schema: studentSchema } = require('../students/studentModel');
 
 const projectSchema = exports.schema = new Schema({
   title: String,

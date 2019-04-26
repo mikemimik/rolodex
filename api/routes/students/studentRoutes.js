@@ -3,9 +3,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { logRequest } = require('../../utils');
+// const { logRequest } = require('../../utils');
 
-const studentService = require('./studentService');
+// const studentService = require('./studentService');
 
 // GET /student/
 router.route('/')
