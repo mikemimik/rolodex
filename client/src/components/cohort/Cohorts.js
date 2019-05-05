@@ -99,7 +99,7 @@ class Cohorts extends PureComponent {
                 return (
                   <ListItem
                     button
-                    key={`${cohort.year}-${cohort.cohort}`}
+                    key={`${cohort.year}-${cohort.cohort}-${cohort.program}`}
                     onClick={(event) => {
                       this.handleClickCohort(cohort._id);
                     }}
