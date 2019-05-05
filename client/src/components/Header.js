@@ -33,7 +33,10 @@ class Header extends PureComponent {
 }
 
 Header.propTypes = {
-  currentView: PropTypes.string,
+  currentView: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   tabs: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
