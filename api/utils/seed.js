@@ -62,6 +62,12 @@ exports.seed = async () => {
         program: 'full-stack-master-class',
         students,
       },
+      {
+        year: 2018,
+        cohort: 'fall',
+        program: 'full-stack-master-class',
+        students: [],
+      },
     ];
     const cohortPromises = cohortData.map(async (data) => {
       try {
