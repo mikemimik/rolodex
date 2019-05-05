@@ -66,10 +66,9 @@ class Cohorts extends PureComponent {
 
   renderHeader = (props) => (
     <Header
-      currentView={'cohorts.view'}
+      currentView={false}
       handleTabChange={handleTabChange}
       tabs={listTabs([
-        'cohorts.view',
         'cohorts.create',
       ])}
       {...props}

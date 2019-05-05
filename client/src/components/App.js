@@ -12,6 +12,7 @@ import { getToken } from '../services/tokenService';
 import CreateCohort from './cohort/CreateCohort';
 import Cohorts from './cohort/Cohorts';
 import Cohort from './cohort/Cohort';
+import Student from './Student';
 import Login from './Login';
 
 class App extends Component {
@@ -155,6 +156,23 @@ class App extends Component {
                     onFetchStudents={this.onFetchStudents}
                   />
                 );
+            }}
+          />
+          <Route
+            exact path='/cohorts/:cohortId/students/:studentId'
+            render={(renderProps) => {
+              const studentId = get(renderProps, 'match.params.studentId');
+              const student = this.state.studentsById[studentId];
+              return (!this.state.user)
+                ? (<Redirect to='/login' />)
+                : (!student)
+                  ? (<Redirect to='/cohorts' />)
+                  : (
+                    <Student
+                      {...renderProps}
+                      student={student}
+                    />
+                  );
             }}
           />
           <Route render={() => (<Redirect to='/' />)} />

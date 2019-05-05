@@ -34,10 +34,13 @@ const styles = (theme) => ({
 });
 
 class Cohort extends PureComponent {
-  handleClickStudent = async () => {
+  handleClickStudent = async (studentId) => {
     console.group('Cohort::handleClickStudent');
-    console.log('click');
+    console.log('studentId:', studentId);
     console.groupEnd();
+    const { history } = this.props;
+    const cohortId = get(this.props, 'match.params.cohortId');
+    return history.push({ pathname: `/cohorts/${cohortId}/students/${studentId}` });
   }
 
   handleFetchStudents = async () => {
