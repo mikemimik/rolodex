@@ -11,12 +11,10 @@ import {
   Avatar,
   Badge,
   Typography,
-  IconButton,
 } from '@material-ui/core';
 import {
   Bookmark as BookmarkIcon,
   Person as PersonIcon,
-  Edit as EditIcon,
 } from '@material-ui/icons';
 
 import { listTabs, handleTabChange } from '../Tabs';

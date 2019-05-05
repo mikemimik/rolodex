@@ -81,11 +81,10 @@ class EditCohort extends PureComponent {
 
   renderHeader = (props) => (
     <Header
-      currentView={'cohorts.create'}
+      currentView={false}
       handleTabChange={handleTabChange}
       tabs={listTabs([
         'cohorts.view',
-        'cohorts.create',
       ])}
       {...props}
     />
@@ -96,7 +95,7 @@ class EditCohort extends PureComponent {
     return (
       <>
         {this.renderHeader(this.props)}
-        <Page title='Create Cohort'>
+        <Page title='Edit Cohort'>
           <form className={classes.container}>
             <TextField
               fullWidth
