@@ -38,20 +38,13 @@ export const Tabs = {
 };
 
 export function listTabs (paths) {
-  console.group('Tabs::listTabs');
-  console.log('paths:', paths);
-  console.groupEnd();
   return paths.map((path) => {
     return get(Tabs, `${path}.component`);
   });
 }
 
 export function handleTabChange (event, value) {
-  console.group('Tabs::handleTabChange');
   const { history, match: { params } } = this.props;
-  console.log('params:', params);
   const pathname = get(Tabs, `${value}.pathname`)(params);
-  console.log('pathname:', pathname);
-  console.groupEnd();
   return history.push({ pathname });
 }
