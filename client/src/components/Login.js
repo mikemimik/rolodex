@@ -109,6 +109,7 @@ class Login extends PureComponent {
                 autoFocus
                 id='email'
                 name='email'
+                type='email'
                 autoComplete='email'
                 onChange={({ target: { id, value } }) => {
                   this.debounceChange(id, value);
