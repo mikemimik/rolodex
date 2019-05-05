@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { get } from 'lodash';
 
 import { listTabs, handleTabChange } from '../Tabs';
 import Header from '../Header';
@@ -15,6 +16,9 @@ class Student extends PureComponent {
     <Header
       currentView={false}
       handleTabChange={handleTabChange}
+      appState={{
+        student: this.props.studentsById[get(this.props, 'match.params.studentId')] || {},
+      }}
       tabs={listTabs([
         'students.view',
         'students.edit',
@@ -40,6 +44,7 @@ class Student extends PureComponent {
 Student.propTypes = {
   classes: PropTypes.object,
   student: PropTypes.object,
+  studentsById: PropTypes.object,
   history: PropTypes.object,
 };
 

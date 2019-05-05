@@ -13,6 +13,7 @@ import CreateCohort from './cohort/CreateCohort';
 import EditCohort from './cohort/EditCohort';
 import Cohorts from './cohort/Cohorts';
 import Cohort from './cohort/Cohort';
+import EditStudent from './student/EditStudent';
 import Student from './student/Student';
 import Login from './Login';
 
@@ -179,6 +180,19 @@ class App extends Component {
             }}
           />
           <Route
+            exact path='/cohorts/:cohortId/students/:studentId/edit'
+            render={(renderProps) => {
+              return (!this.state.user)
+                ? (<Redirect to='/login' />)
+                : (
+                  <EditStudent
+                    {...renderProps}
+                    onFetchStudents={this.onFetchStudents}
+                  />
+                );
+            }}
+          />
+          <Route
             exact path='/cohorts/:cohortId/students/:studentId'
             render={(renderProps) => {
               const studentId = get(renderProps, 'match.params.studentId');
@@ -191,6 +205,7 @@ class App extends Component {
                     <Student
                       {...renderProps}
                       student={student}
+                      studentsById={this.state.studentsById}
                     />
                   );
             }}

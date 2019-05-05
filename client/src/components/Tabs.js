@@ -33,6 +33,10 @@ export const Tabs = {
       component: <Tab key='students.create' label='Add Student' value='students.create' icon={<AddCircleIcon />} />,
       pathname: () => '/students/create',
     },
+    edit: {
+      component: <Tab key='students.edit' label='Edit Student' value='students.edit' icon={<EditIcon />} />,
+      pathname: ({ cohortId, studentId }) => `/cohorts/${cohortId}/students/${studentId}/edit`,
+    },
   },
   projects: {
     create: {
