@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
-  Folder as FolderIcon,
+  Bookmark as BookmarkIcon,
   Person as PersonIcon,
 } from '@material-ui/icons';
 
@@ -106,7 +106,7 @@ class Cohorts extends PureComponent {
                   >
                     <ListItemAvatar>
                       <Avatar>
-                        <FolderIcon />
+                        <BookmarkIcon />
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText
