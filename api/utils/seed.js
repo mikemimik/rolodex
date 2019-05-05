@@ -38,6 +38,12 @@ exports.seed = async () => {
         avatar: '',
         projects,
       },
+      {
+        firstName: 'Jamie',
+        lastName: 'Scott',
+        avatar: '',
+        projects: [],
+      },
     ];
     const studentPromises = studentData.map(async (data) => {
       try {
