@@ -23,3 +23,13 @@ exports.createCohort = async (cohortData) => {
     throw e;
   }
 };
+
+exports.updateCohort = async (cohortId, cohortData) => {
+  try {
+    await Cohort.findByIdAndUpdate(cohortId, cohortData);
+    const [nextCohort] = await exports.listCohorts({ filter: { _id: cohortId } });
+    return nextCohort;
+  } catch (e) {
+    throw e;
+  }
+};
