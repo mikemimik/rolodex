@@ -107,7 +107,6 @@ class Login extends PureComponent {
             message: statusText,
           },
         });
-        }
       }
     } catch (e) {
       console.error('error:', e);
