@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-import { CohortTabs, handleTabChange } from './CohortTabs';
+import { listTabs, handleTabChange } from '../Tabs';
 import Header from '../Header';
 import Page from '../Page';
 
@@ -12,9 +12,12 @@ const styles = (theme) => ({
 class CreateCohort extends PureComponent {
   renderHeader = (props) => (
     <Header
-      currentView={'create'}
+      currentView={'cohorts.create'}
       handleTabChange={handleTabChange}
-      tabs={CohortTabs}
+      tabs={listTabs([
+        'cohorts.view',
+        'cohorts.create',
+      ])}
       {...props}
     />
   )
