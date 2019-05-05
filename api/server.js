@@ -12,12 +12,15 @@ const errorHandlers = require('./middleware/errorHandlers');
 
 const { router: cohortRoutes } = require('./routes/cohorts/cohortRoutes');
 const { router: userRoutes } = require('./routes/users/userRoutes');
+const { router: studentRoutes } = require('./routes/students/studentRoutes');
+
 const { PORT, URL } = require('./utils/constants');
 
 applyMiddleware(middleWare, router);
 
 router.use('/api/cohorts', cohortRoutes);
 router.use('/api/users', userRoutes);
+router.use('/api/students', studentRoutes);
 
 applyMiddleware(errorHandlers, router);
 
@@ -42,4 +45,8 @@ mongoose
       console.error(`Error starting server: ${e}`);
       throw e;
     }
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
   });
