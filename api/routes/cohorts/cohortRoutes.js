@@ -37,4 +37,27 @@ router.route('/')
     }
   );
 
+// GET /cohorts/:cohortId/students
+router.route('/:cohortId/students')
+  .get(
+    requiresAuth,
+    async (req, res, next) => {
+      console.group('CohortRoutes::GET /:cohortId/students');
+      try {
+        const { cohortId } = req.params;
+        const cohorts = await cohortService.listCohorts({
+          filter: { _id: cohortId },
+          include: ['students'],
+        });
+        console.log('cohorts:', cohorts);
+
+        res.json({ data: cohorts });
+        logRequest(req, res);
+      } catch (e) {
+        next(e);
+      }
+      console.groupEnd();
+    }
+  );
+
 exports.router = router;
