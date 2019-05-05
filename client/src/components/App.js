@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { uniqBy } from 'lodash';
+import { get, uniqBy } from 'lodash';
 
 import { getToken } from '../services/tokenService';
 
@@ -66,6 +66,29 @@ class App extends Component {
     });
   }
 
+  onFetchStudents = (cohortId, students) => {
+    const studentsById = students.reduce((acc, student) => {
+      const { _id } = student;
+      return Object.assign({}, acc, { [_id]: student });
+    }, {});
+
+    const currentStudents = this.state.students;
+    const nextStudents = uniqBy([...currentStudents, ...students], '_id');
+
+    const currentStudentsById = this.state.studentsById;
+    const nextStudentsById = Object.assign({}, currentStudentsById, studentsById);
+
+    // const currentStudentsByCohortId = this.state.studentsByCohortId[cohortId] || {};
+    const studentsByCohortId = { [cohortId]: students };
+    // const nextStudentsByCohortId = uniqBy([...currentStudentsByCohortId ]);
+
+    this.setState({
+      students: nextStudents,
+      studentsById: nextStudentsById,
+      studentsByCohortId,
+    });
+  }
+
   componentDidMount () {
     console.group('App::componentDidMount');
     this.fetchUser();
@@ -120,15 +143,19 @@ class App extends Component {
           />
           <Route
             exact path='/cohorts/:cohortId'
-            render={(renderProps) => (
-              (!this.state.user)
+            render={(renderProps) => {
+              const cohortId = get(renderProps, 'match.params.cohortId');
+              const cohortStudents = this.state.studentsByCohortId[cohortId] || [];
+              return (!this.state.user)
                 ? (<Redirect to='/login' />)
                 : (
                   <Cohort
                     {...renderProps}
+                    students={cohortStudents}
+                    onFetchStudents={this.onFetchStudents}
                   />
-                )
-            )}
+                );
+            }}
           />
           <Route render={() => (<Redirect to='/' />)} />
         </Switch>
