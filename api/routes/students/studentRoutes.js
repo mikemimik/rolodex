@@ -3,19 +3,25 @@
 const express = require('express');
 const router = express.Router();
 
-// const { logRequest } = require('../../utils');
+const requiresAuth = require('../../middleware/auth');
+const { logRequest } = require('../../utils');
 
-// const studentService = require('./studentService');
+const studentService = require('./studentService');
 
 // GET /student/
 router.route('/')
-  .get(async (req, res, next) => {
-    try {
-
-    } catch (e) {
-      next(e);
+  .get(
+    requiresAuth,
+    async (req, res, next) => {
+      try {
+        const students = await studentService.listStudents();
+        res.json({ data: students });
+        logRequest(req, res);
+      } catch (e) {
+        next(e);
+      }
     }
-  })
+  )
 // POST /student/ (creating a new student)
   .post(async (req, res, next) => {
     try {
