@@ -12,6 +12,7 @@ class Header extends PureComponent {
       currentView,
       tabs,
       handleTabChange,
+      appState,
     } = this.props;
 
     return (
@@ -19,7 +20,7 @@ class Header extends PureComponent {
         <Tabs
           value={currentView}
           onChange={(event, value) => {
-            handleTabChange.call(this, event, value);
+            handleTabChange.call(this, event, value, appState);
           }}
           indicatorColor='primary'
           textColor='primary'
@@ -42,6 +43,7 @@ Header.propTypes = {
     PropTypes.arrayOf(PropTypes.element),
   ]),
   handleTabChange: PropTypes.func,
+  appState: PropTypes.object,
 };
 
 export default Header;

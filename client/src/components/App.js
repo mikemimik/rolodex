@@ -13,7 +13,7 @@ import CreateCohort from './cohort/CreateCohort';
 import EditCohort from './cohort/EditCohort';
 import Cohorts from './cohort/Cohorts';
 import Cohort from './cohort/Cohort';
-import Student from './Student';
+import Student from './student/Student';
 import Login from './Login';
 
 class App extends Component {
@@ -129,7 +129,6 @@ class App extends Component {
                   <Cohorts
                     {...renderProps}
                     cohorts={this.state.cohorts}
-                    cohortsById={this.state.cohortsById}
                     onFetchCohorts={this.onFetchCohorts}
                   />
                 )
@@ -158,6 +157,7 @@ class App extends Component {
                   <Cohort
                     {...renderProps}
                     students={cohortStudents}
+                    cohortsById={this.state.cohortsById}
                     onFetchStudents={this.onFetchStudents}
                   />
                 );

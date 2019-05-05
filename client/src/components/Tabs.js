@@ -6,6 +6,7 @@ import {
   ChromeReaderMode as ReaderIcon,
   AddCircle as AddCircleIcon,
   Person as PersonIcon,
+  Edit as EditIcon,
 } from '@material-ui/icons';
 
 export const Tabs = {
@@ -17,6 +18,10 @@ export const Tabs = {
     create: {
       component: <Tab key='cohorts.create' label='Add Cohort' value='cohorts.create' icon={<AddCircleIcon />} />,
       pathname: () => '/cohorts/create',
+    },
+    edit: {
+      component: <Tab key='cohorts.edit' label='Edit Cohort' value='cohorts.edit' icon={<EditIcon />} />,
+      pathname: ({ cohortId }) => `/cohorts/${cohortId}/edit`,
     },
   },
   students: {
@@ -43,8 +48,8 @@ export function listTabs (paths) {
   });
 }
 
-export function handleTabChange (event, value) {
+export function handleTabChange (event, value, appState) {
   const { history, match: { params } } = this.props;
   const pathname = get(Tabs, `${value}.pathname`)(params);
-  return history.push({ pathname });
+  return history.push({ pathname, state: appState });
 }

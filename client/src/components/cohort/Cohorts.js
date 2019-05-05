@@ -30,9 +30,6 @@ const styles = (theme) => ({
   margin: {
     margin: theme.spacing.unit * 2,
   },
-  edit: {
-    margin: theme.spacing.unit * 5,
-  },
   inline: {
     display: 'inline',
   },
@@ -42,17 +39,6 @@ class Cohorts extends PureComponent {
   handleClickCohort = (id) => {
     const { history } = this.props;
     return history.push({ pathname: `/cohorts/${id}` });
-  }
-
-  handleEditCohort = (id) => {
-    const { history } = this.props;
-    const location = {
-      pathname: `/cohorts/${id}/edit`,
-      state: {
-        cohort: this.props.cohortsById[id],
-      },
-    };
-    return history.push(location);
   }
 
   handleFetchCohorts = async () => {
@@ -130,16 +116,6 @@ class Cohorts extends PureComponent {
                         this.handleClickCohort(cohort._id);
                       }}
                     />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        className={classes.edit}
-                        onClick={(event) => {
-                          this.handleEditCohort(cohort._id);
-                        }}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
                     <ListItemSecondaryAction>
                       <Badge
                         className={classes.margin}

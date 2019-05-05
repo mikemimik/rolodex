@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import { listTabs, handleTabChange } from './Tabs';
-import Header from './Header';
-import Page from './Page';
+import { listTabs, handleTabChange } from '../Tabs';
+import Header from '../Header';
+import Page from '../Page';
 
 const styles = (theme) => ({
   root: {},
@@ -17,6 +17,7 @@ class Student extends PureComponent {
       handleTabChange={handleTabChange}
       tabs={listTabs([
         'students.view',
+        'students.edit',
         'projects.create',
       ])}
       {...props}

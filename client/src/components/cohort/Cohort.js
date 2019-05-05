@@ -68,8 +68,12 @@ class Cohort extends PureComponent {
     <Header
       currentView={false}
       handleTabChange={handleTabChange}
+      appState={{
+        cohort: this.props.cohortsById[get(this.props, 'match.params.cohortId')] || {},
+      }}
       tabs={listTabs([
         'cohorts.view',
+        'cohorts.edit',
         'students.create',
       ])}
       {...props}
@@ -143,6 +147,7 @@ class Cohort extends PureComponent {
 Cohort.propTypes = {
   classes: PropTypes.object,
   students: PropTypes.arrayOf(PropTypes.object),
+  cohortsById: PropTypes.object,
   onFetchStudents: PropTypes.func,
   history: PropTypes.object,
 };
