@@ -37,6 +37,23 @@ router.route('/')
     }
   );
 
+// PUT /cohorts/:cohortId
+router.route('/:cohortId')
+  .put(
+    requiresAuth,
+    async (req, res, next) => {
+      try {
+        const { cohortId } = req.params;
+        const { body } = req;
+        const cohort = await cohortService.updateCohort(cohortId, body);
+        res.status(200).json({ data: [cohort] });
+        logRequest(req, res);
+      } catch (e) {
+        next(e);
+      }
+    }
+  );
+
 // GET /cohorts/:cohortId/students
 router.route('/:cohortId/students')
   .get(
