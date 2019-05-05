@@ -13,8 +13,15 @@ import {
   InputLabel,
   Paper,
   Typography,
+  IconButton,
+  Snackbar,
+  SnackbarContent,
 } from '@material-ui/core';
-import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons';
+import {
+  LockOutlined as LockOutlinedIcon,
+  Error as ErrorIcon,
+  Close as CloseIcon,
+} from '@material-ui/icons';
 
 import { setToken } from '../services/tokenService';
 
@@ -49,6 +56,18 @@ const styles = (theme) => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  snackError: {
+    backgroundColor: theme.palette.error.dark,
+  },
+  snackIcon: {
+    fontSize: 20,
+    opacity: 0.9,
+    marginRight: theme.spacing.unit,
+  },
+  snackMessage: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
 
 class Login extends PureComponent {
@@ -57,6 +76,7 @@ class Login extends PureComponent {
     this.state = {
       email: '',
       password: '',
+      error: {},
     };
 
     this.debounceChange = debounce(this.handleInputChange, 300);
@@ -72,14 +92,32 @@ class Login extends PureComponent {
           'Content-Type': 'application/json',
         },
       });
-      const { data } = await loginResponse.json();
-      const [ tokenData ] = data;
-      const { token } = tokenData;
-      setToken(token);
-      this.props.fetchUser();
+      console.log('loginResponse:', loginResponse);
+      const { ok, status, statusText } = loginResponse;
+      if (ok) {
+        const { data } = await loginResponse.json();
+        const [ tokenData ] = data;
+        const { token } = tokenData;
+        setToken(token);
+        this.props.fetchUser();
+      } else {
+        this.setState({
+          error: {
+            status,
+            message: statusText,
+          },
+        });
+        }
+      }
     } catch (e) {
       console.error('error:', e);
     }
+  }
+
+  handleClose = () => {
+    this.setState({
+      error: {},
+    });
   }
 
   handleInputChange = (id, value) => {
@@ -93,9 +131,40 @@ class Login extends PureComponent {
 
   render () {
     const { classes } = this.props;
+    const { error } = this.state;
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            open={!!Object.keys(error).length}
+            onClose={this.handleClose}
+            ContentProps={{ 'aria-describedby': 'message-id' }}
+            autoHideDuration={6000}
+          >
+            <SnackbarContent
+              className={classes.snackError}
+              aria-describedby='client-snackbar'
+              message={
+                <span id='client-snackbar' className={classes.snackMessage}>
+                  <ErrorIcon
+                    className={classes.snackIcon}
+                  />
+                  {error.message || ''}
+                </span>
+              }
+              action={[
+                <IconButton
+                  key='close'
+                  aria-label='Close'
+                  color='inherit'
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon className={classes.icon} />
+                </IconButton>,
+              ]}
+            />
+          </Snackbar>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
