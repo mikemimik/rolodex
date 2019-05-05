@@ -11,10 +11,12 @@ import {
   Avatar,
   Badge,
   Typography,
+  IconButton,
 } from '@material-ui/core';
 import {
   Bookmark as BookmarkIcon,
   Person as PersonIcon,
+  Edit as EditIcon,
 } from '@material-ui/icons';
 
 import { listTabs, handleTabChange } from '../Tabs';
@@ -28,6 +30,9 @@ const styles = (theme) => ({
   margin: {
     margin: theme.spacing.unit * 2,
   },
+  edit: {
+    margin: theme.spacing.unit * 5,
+  },
   inline: {
     display: 'inline',
   },
@@ -36,17 +41,21 @@ const styles = (theme) => ({
 class Cohorts extends PureComponent {
   handleClickCohort = (id) => {
     const { history } = this.props;
+    return history.push({ pathname: `/cohorts/${id}` });
+  }
+
+  handleEditCohort = (id) => {
+    const { history } = this.props;
     const location = {
-      pathname: `/cohorts/${id}`,
+      pathname: `/cohorts/${id}/edit`,
       state: {
-        cohortId: id,
+        cohort: this.props.cohortsById[id],
       },
     };
-    history.push(location);
+    return history.push(location);
   }
 
   handleFetchCohorts = async () => {
-    console.group('Cohorts::handleFetchCohorts');
     try {
       const token = getToken();
       const response = await fetch('/api/cohorts', {
@@ -55,12 +64,9 @@ class Cohorts extends PureComponent {
         },
       });
       const cohorts = await response.json();
-      console.log('cohorts:', cohorts.data);
       this.props.onFetchCohorts(cohorts.data);
-      console.groupEnd();
     } catch (e) {
       console.error(e);
-      console.groupEnd();
     }
   }
 
@@ -99,9 +105,6 @@ class Cohorts extends PureComponent {
                   <ListItem
                     button
                     key={`${cohort.year}-${cohort.cohort}-${cohort.program}`}
-                    onClick={(event) => {
-                      this.handleClickCohort(cohort._id);
-                    }}
                   >
                     <ListItemAvatar>
                       <Avatar>
@@ -123,7 +126,20 @@ class Cohorts extends PureComponent {
                           {` - ${cohort.cohort}`}
                         </React.Fragment>
                       }
+                      onClick={(event) => {
+                        this.handleClickCohort(cohort._id);
+                      }}
                     />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        className={classes.edit}
+                        onClick={(event) => {
+                          this.handleEditCohort(cohort._id);
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
                     <ListItemSecondaryAction>
                       <Badge
                         className={classes.margin}
@@ -147,6 +163,7 @@ class Cohorts extends PureComponent {
 Cohorts.propTypes = {
   classes: PropTypes.object,
   cohorts: PropTypes.arrayOf(PropTypes.object),
+  cohortsById: PropTypes.object,
   onFetchCohorts: PropTypes.func,
   history: PropTypes.object,
 };

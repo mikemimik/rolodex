@@ -10,6 +10,7 @@ import { get, uniqBy } from 'lodash';
 import { getToken } from '../services/tokenService';
 
 import CreateCohort from './cohort/CreateCohort';
+import EditCohort from './cohort/EditCohort';
 import Cohorts from './cohort/Cohorts';
 import Cohort from './cohort/Cohort';
 import Student from './Student';
@@ -50,17 +51,20 @@ class App extends Component {
   }
 
   onFetchCohorts = (cohorts) => {
+    console.group('App::onFetchCohorts');
+    console.log('cohorts:', cohorts);
     const cohortsById = cohorts.reduce((acc, cohort) => {
       const { _id } = cohort;
       return Object.assign({}, acc, { [_id]: cohort });
     }, {});
 
     const currentCohorts = this.state.cohorts;
-    const nextCohorts = uniqBy([...currentCohorts, ...cohorts], '_id');
+    const nextCohorts = uniqBy([...cohorts, ...currentCohorts], '_id');
 
     const currentCohortsById = this.state.cohortsById;
     const nextCohortsById = Object.assign({}, currentCohortsById, cohortsById);
 
+    console.groupEnd();
     this.setState({
       cohorts: nextCohorts,
       cohortsById: nextCohortsById,
@@ -74,7 +78,7 @@ class App extends Component {
     }, {});
 
     const currentStudents = this.state.students;
-    const nextStudents = uniqBy([...currentStudents, ...students], '_id');
+    const nextStudents = uniqBy([...students, ...currentStudents], '_id');
 
     const currentStudentsById = this.state.studentsById;
     const nextStudentsById = Object.assign({}, currentStudentsById, studentsById);
@@ -125,6 +129,7 @@ class App extends Component {
                   <Cohorts
                     {...renderProps}
                     cohorts={this.state.cohorts}
+                    cohortsById={this.state.cohortsById}
                     onFetchCohorts={this.onFetchCohorts}
                   />
                 )
@@ -154,6 +159,21 @@ class App extends Component {
                     {...renderProps}
                     students={cohortStudents}
                     onFetchStudents={this.onFetchStudents}
+                  />
+                );
+            }}
+          />
+          <Route
+            exact path='/cohorts/:cohortId/edit'
+            render={(renderProps) => {
+              // const cohortId = get(renderProps, 'match.params.cohortId');
+              // const cohortStudents = this.state.studentsByCohortId[cohortId] || [];
+              return (!this.state.user)
+                ? (<Redirect to='/login' />)
+                : (
+                  <EditCohort
+                    {...renderProps}
+                    onFetchCohorts={this.onFetchCohorts}
                   />
                 );
             }}
