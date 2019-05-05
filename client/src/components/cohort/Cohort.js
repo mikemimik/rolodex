@@ -87,7 +87,7 @@ class Cohort extends PureComponent {
     return (
       <>
         {this.renderHeader(this.props)}
-        <Page title='Cohort'>
+        <Page title='Cohort Students'>
           <List>
             {
               students.map((student) => {
