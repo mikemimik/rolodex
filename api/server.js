@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const http = require('http');
+const path = require('path');
 
 const router = express();
 
@@ -15,6 +16,9 @@ const { router: userRoutes } = require('./routes/users/userRoutes');
 const { router: studentRoutes } = require('./routes/students/studentRoutes');
 
 const { PORT, URL } = require('./utils/constants');
+
+const publicPath = path.resolve(__dirname, '../..', 'build');
+router.use('/', express.static(publicPath));
 
 applyMiddleware(middleWare, router);
 
