@@ -1,8 +1,8 @@
 'use strict';
 
-const bodyParser = require('body-parser');
+const express = require('express')
 
 exports.handleBodyRequestParsing = (router) => {
-  router.use(bodyParser.urlencoded({ extended: true }));
-  router.use(bodyParser.json());
+  router.use(express.urlencoded({ extended: true }));
+  router.use(express.json());
 };
