@@ -28,27 +28,26 @@
   },
   "homepage": "https://mikemimik-rolodex.herokuapp.com",
   "dependencies": {
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
+    "@material-ui/core": "^4.7.0",
+    "@material-ui/icons": "^4.5.1",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "fast-redact": "^1.5.0",
+    "express": "^4.17.1",
+    "fast-redact": "^2.0.0",
     "init-package-json": "^1.10.3",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
-    "mongoose": "^5.4.22",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-router-dom": "^5.0.0"
+    "lodash": "^4.17.15",
+    "mongoose": "^5.7.12",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
+    "eslint": "^6.7.1",
     "eslint-config-semistandard-react": "^4.2.0",
     "eslint-plugin-semistandard-react": "^4.1.0",
-    "hackeryou-fullstack-react-scripts": "2.3.0",
-    "pm2": "^3.5.0"
+    "pm2": "^4.2.0",
+    "react-scripts": "^3.2.0"
   },
   "browserslist": [
     ">0.2%",
