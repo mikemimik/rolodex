@@ -31,7 +31,7 @@ applyMiddleware(errorHandlers, router);
 const server = http.createServer(router);
 
 mongoose
-  .connect(URL, { useNewUrlParser: true })
+  .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log(`Connected to database at: ${URL}`);
     try {
