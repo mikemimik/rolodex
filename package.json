@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "node api/server.js",
-    "build": "yarn run build:client && yarn run move:client",
+    "build": "npm run build:client && npm run move:client",
     "lint": "eslint .",
     "test": "react-scripts test",
     "start:server": "pm2 start process.config.js",
