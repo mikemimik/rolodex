@@ -1,9 +1,9 @@
 'use strict';
 
-const { model: Cohort } = require('../routes/cohorts/cohortModel');
-const { model: Student } = require('../routes/students/studentModel');
-const { model: Project } = require('../routes/projects/projectModel');
-const { model: User } = require('../routes/users/userModel');
+const { model: Cohort } = require('../resources/cohorts/cohortModel');
+const { model: Student } = require('../resources/students/studentModel');
+const { model: Project } = require('../resources/projects/projectModel');
+const { model: User } = require('../resources/users/userModel');
 
 exports.truncate = async () => {
   await Cohort.deleteMany();

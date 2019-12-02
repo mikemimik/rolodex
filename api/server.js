@@ -11,13 +11,13 @@ const { applyMiddleware } = require('./utils');
 const middleWare = require('./middleware');
 const errorHandlers = require('./middleware/errorHandlers');
 
-const { router: cohortRoutes } = require('./routes/cohorts/cohortRoutes');
-const { router: userRoutes } = require('./routes/users/userRoutes');
-const { router: studentRoutes } = require('./routes/students/studentRoutes');
+const { router: cohortRoutes } = require('./resources/cohorts/cohortRoutes');
+const { router: userRoutes } = require('./resources/users/userRoutes');
+const { router: studentRoutes } = require('./resources/students/studentRoutes');
 
 const { PORT, URL } = require('./utils/constants');
 
-const publicPath = path.resolve(__dirname, '../..', 'build');
+const publicPath = path.resolve(__dirname, '..', 'build');
 router.use('/', express.static(publicPath));
 
 applyMiddleware(middleWare, router);
