@@ -20,7 +20,7 @@ const { PORT, URL } = require('./utils/constants');
 const publicPath = path.resolve(__dirname, '..', 'build');
 app.use('/', express.static(publicPath));
 
-// applyMiddleware(middleWare, app);
+applyMiddleware(middleWare, app);
 
 app.use('/api/cohorts', cohortRoutes);
 app.use('/api/users', userRoutes);
