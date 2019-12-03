@@ -21,6 +21,6 @@ const publicOptions = {
 };
 const publicPath = exports.publicPath = path.resolve(__dirname, '../..', PUBLIC_FOLDER);
 
-exports.handleServingPublicFolder = (router) => {
-  router.use(express.static(publicPath, publicOptions));
+exports.handleServingPublicFolder = (app) => {
+  app.use(express.static(publicPath, publicOptions));
 };
