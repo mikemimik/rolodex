@@ -15,7 +15,8 @@
     "start:client": "react-scripts start",
     "build:client": "react-scripts build",
     "move:client": "cp -R build/ public",
-    "git:remote:set": "git remote set-url origin git@github.com:mikemimik/rolodex.git"
+    "git:remote:set": "git remote set-url origin git@github.com:mikemimik/rolodex.git",
+    "postinstall": "npm run build:client"
   },
   "repository": {
     "type": "git",
