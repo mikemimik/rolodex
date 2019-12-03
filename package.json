@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "HackerYou Fullstack Masterclass Project",
   "scripts": {
-    "deploy": "npm run build:client && node api/server.js",
+    "deploy": "npm run printenv && npm run build:client && node api/server.js",
     "build": "npm run build:client && npm run move:client",
+    "printenv": "printenv",
     "lint": "eslint .",
     "test": "react-scripts test",
     "start:server:pm2": "pm2 start process.config.js",
