@@ -5,7 +5,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 
-const router = express();
+const app = express();
 
 const { applyMiddleware } = require('./utils');
 const middleWare = require('./middleware');
@@ -18,17 +18,17 @@ const { router: studentRoutes } = require('./resources/students/studentRoutes');
 const { PORT, URL } = require('./utils/constants');
 
 const publicPath = path.resolve(__dirname, '..', 'build');
-router.use('/', express.static(publicPath));
+app.use('/', express.static(publicPath));
 
-applyMiddleware(middleWare, router);
+// applyMiddleware(middleWare, app);
 
-router.use('/api/cohorts', cohortRoutes);
-router.use('/api/users', userRoutes);
-router.use('/api/students', studentRoutes);
+app.use('/api/cohorts', cohortRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/students', studentRoutes);
 
-applyMiddleware(errorHandlers, router);
+applyMiddleware(errorHandlers, app);
 
-const server = http.createServer(router);
+const server = http.createServer(app);
 
 mongoose
   .connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
