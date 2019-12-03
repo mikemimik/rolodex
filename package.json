@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "HackerYou Fullstack Masterclass Project",
   "scripts": {
-    "deploy": "npm run printenv && npm run build:client && node api/server.js",
+    "deploy": "npm run printenv && node api/server.js",
     "build": "npm run build:client && npm run move:client",
     "printenv": "printenv",
     "lint": "eslint .",
