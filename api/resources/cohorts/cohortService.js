@@ -9,7 +9,7 @@ exports.listCohorts = async ({ filter, include } = { filter: {} }) => {
         return acc.populate(field);
       }, Cohort.find(filter)).sort('-year');
     }
-    return await Cohort.find(filter).sort('-year');
+    return Cohort.find(filter).sort('-year');
   } catch (e) {
     throw e;
   }
@@ -18,7 +18,7 @@ exports.listCohorts = async ({ filter, include } = { filter: {} }) => {
 exports.createCohort = async (cohortData) => {
   try {
     const cohort = new Cohort(cohortData);
-    return await cohort.save();
+    return cohort.save();
   } catch (e) {
     throw e;
   }

@@ -4,8 +4,9 @@ const { model: Student } = require('./studentModel');
 
 exports.listStudents = async () => {
   try {
-    return await Student.find({});
+    return Student.find({});
   } catch (e) {
     throw e;
   }
 };
+

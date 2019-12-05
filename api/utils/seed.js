@@ -24,7 +24,7 @@ exports.seed = async () => {
     const projectPromises = projectData.map(async (data) => {
       try {
         const project = new Project(data);
-        return await project.save();
+        return project.save();
       } catch (e) {
         throw e;
       }
@@ -48,7 +48,7 @@ exports.seed = async () => {
     const studentPromises = studentData.map(async (data) => {
       try {
         const student = new Student(data);
-        return await student.save();
+        return student.save();
       } catch (e) {
         throw e;
       }
@@ -72,7 +72,7 @@ exports.seed = async () => {
     const cohortPromises = cohortData.map(async (data) => {
       try {
         const cohort = new Cohort(data);
-        return await cohort.save();
+        return cohort.save();
       } catch (e) {
         throw e;
       }
@@ -88,7 +88,7 @@ exports.seed = async () => {
     const userPromises = userData.map(async (data) => {
       try {
         const user = new User(data);
-        return await user.save();
+        return user.save();
       } catch (e) {
         throw e;
       }

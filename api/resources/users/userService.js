@@ -7,7 +7,7 @@ const { HTTP401Error } = require('../../utils/httpErrors');
 exports.createUser = async (userData) => {
   try {
     const user = new User(userData);
-    return await user.save();
+    return user.save();
   } catch (e) {
     throw e;
   }
@@ -15,7 +15,7 @@ exports.createUser = async (userData) => {
 
 exports.findUser = async (userId) => {
   try {
-    return await User.findById(userId);
+    return User.findById(userId);
   } catch (e) {
     throw e;
   }
