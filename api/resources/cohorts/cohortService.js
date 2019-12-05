@@ -4,8 +4,8 @@ const { model: Cohort } = require('./cohortModel');
 
 exports.listCohorts = async ({ filter, include } = { filter: {} }) => {
   try {
-    if (include) {
-      return await include.reduce((acc, field) => {
+    if (Array.isArray(include) && include.length) {
+      return include.reduce((acc, field) => {
         return acc.populate(field);
       }, Cohort.find(filter)).sort('-year');
     }
