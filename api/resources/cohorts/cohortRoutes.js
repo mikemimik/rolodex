@@ -39,6 +39,19 @@ router.route('/')
 
 // PUT /cohorts/:cohortId
 router.route('/:cohortId')
+  .get(requiresAuth, async (req, res, next) => {
+    try {
+      const { cohortId } = req.params
+      const cohort = await cohortService.getCohortById(cohortId)
+      if (cohort) {
+        res.status(200).json({ data: [cohort] })
+      } else {
+        res.status(404).json({ data: [] })
+      }
+    } catch (e) {
+      next(e)
+    }
+  })
   .put(
     requiresAuth,
     async (req, res, next) => {
@@ -61,15 +74,11 @@ router.route('/:cohortId/students')
     async (req, res, next) => {
       console.group('CohortRoutes::GET /:cohortId/students');
       try {
-        const { cohortId } = req.params;
-        const cohorts = await cohortService.listCohorts({
-          filter: { _id: cohortId },
-          include: ['students'],
-        });
-        console.log('cohorts:', cohorts);
+        const { cohortId } = req.params
+        const students = await cohortService.getCohortStudents(cohortId)
 
-        res.json({ data: cohorts });
-        logRequest(req, res);
+        res.json({ data: students })
+        logRequest(req, res)
       } catch (e) {
         next(e);
       }

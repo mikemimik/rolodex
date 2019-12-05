@@ -1,6 +1,27 @@
 'use strict';
 
-const { model: Cohort } = require('./cohortModel');
+const { model: Cohort } = require('./cohortModel')
+
+exports.getCohortById = async (id) => {
+  try {
+    return Cohort.findById(id)
+  } catch (e) {
+    throw e
+  }
+}
+
+exports.getCohortStudents = async (id) => {
+  try {
+    const cohort = await Cohort
+      .findById(id)
+      .populate('students')
+    console.log('cohortData:', cohort)
+    const { students } = cohort
+    return students
+  } catch (e) {
+    throw e
+  }
+}
 
 exports.listCohorts = async ({ filter, include } = { filter: {} }) => {
   try {
