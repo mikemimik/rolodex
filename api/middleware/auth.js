@@ -1,6 +1,7 @@
 'use strict';
 
 const tokenService = require('../utils/tokenService');
+const { JsonWebTokenError } = require('jsonwebtoken');
 const { HTTP401Error } = require('../utils/httpErrors');
 
 module.exports = async (req, res, next) => {
@@ -12,16 +13,21 @@ module.exports = async (req, res, next) => {
     try {
       /* eslint-disable-next-line */
       const [prefix, token] = authHeader.split(' ');
-      const decoded = await tokenService.verifyToken(token);
+      if (prefix === 'Bearer' && token) {
+        const decoded = await tokenService.verifyToken(token);
 
-      if (decoded) {
-        req.token = decoded;
-        next();
-      } else {
-        next(new HTTP401Error());
+        if (decoded) {
+          req.token = decoded;
+          return next();
+        }
       }
+      next(new HTTP401Error());
     } catch (e) {
-      next(e);
+      if (e instanceof JsonWebTokenError) {
+        next(new Error(e.message));
+      } else {
+        next(e);
+      }
     }
   }
 };
