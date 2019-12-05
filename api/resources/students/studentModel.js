@@ -1,15 +1,15 @@
-'use strict';
+'use strict'
 
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-const { schema: projectSchema } = require('../projects/projectModel');
+const { schema: projectSchema } = require('../projects/projectModel')
 
 const studentSchema = exports.schema = new Schema({
   firstName: String,
   lastName: String,
   avatar: String,
-  projects: [projectSchema],
-});
+  projects: [projectSchema]
+})
 
-exports.model = mongoose.model('Students', studentSchema);
+exports.model = mongoose.model('Students', studentSchema)

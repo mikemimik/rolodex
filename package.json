@@ -5,16 +5,12 @@
   "scripts": {
     "deploy": "node api/server.js",
     "build": "npm run build:client",
-    "lint": "eslint .",
+    "lint": "standard",
     "test": "react-scripts test",
-    "start:server:pm2": "pm2 start process.config.js",
-    "stop:server:pm2": "pm2 delete process.config.js",
     "start:server": "nodemon api/server.js --ignore src --ignore public --ignore build",
-    "logs:server": "pm2 logs /api/ --lines 10",
     "start:client": "react-scripts start",
     "build:client": "react-scripts build",
-    "move:client": "cp -R build/ public",
-    "git:remote:set": "git remote set-url origin git@github.com:mikemimik/rolodex.git"
+    "move:client": "cp -R build/ public"
   },
   "repository": {
     "type": "git",
@@ -42,13 +38,9 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^6.7.1",
-    "eslint-config-semistandard-react": "^4.2.0",
-    "eslint-plugin-semistandard-react": "^4.1.0",
     "nodemon": "^2.0.1",
-    "pm2": "^4.2.0",
-    "react-scripts": "^3.2.0"
+    "react-scripts": "^3.2.0",
+    "standard": "^12.0.1"
   },
   "browserslist": [
     ">0.2%",
@@ -57,9 +49,14 @@
     "not op_mini all"
   ],
   "proxy": "http://localhost:4000",
-  "semistandard": {
+  "standard": {
+    "globals": [
+      "localStorage"
+    ],
     "ignore": [
-      "build/**"
+      "build/**",
+      "public/",
+      "scripts/"
     ]
   }
 }

@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-const express = require('express');
-const path = require('path');
+const express = require('express')
+const path = require('path')
 
-const { PUBLIC_FOLDER } = require('../utils/constants');
+const { PUBLIC_FOLDER } = require('../utils/constants')
 
 const publicOptions = {
-  dotfiles: 'ignore', // default
+  dotfiles: 'ignore' // default
   // etag: true, // default
   // extensions: [],
   // fallthrough: true, // default
@@ -18,9 +18,9 @@ const publicOptions = {
   // setHeaders: function (res, path, stat) {
   //   res.set('x-timestamp', Date.now());
   // },
-};
-const publicPath = exports.publicPath = path.resolve(__dirname, '../..', PUBLIC_FOLDER);
+}
+const publicPath = exports.publicPath = path.resolve(__dirname, '../..', PUBLIC_FOLDER)
 
 exports.handleServingPublicFolder = (app) => {
-  app.use(express.static(publicPath, publicOptions));
-};
+  app.use('/', express.static(publicPath, publicOptions))
+}

@@ -1,16 +1,16 @@
-'use strict';
+'use strict'
 
-const { model: Cohort } = require('../resources/cohorts/cohortModel');
-const { model: Student } = require('../resources/students/studentModel');
-const { model: Project } = require('../resources/projects/projectModel');
-const { model: User } = require('../resources/users/userModel');
+const { model: Cohort } = require('../resources/cohorts/cohortModel')
+const { model: Student } = require('../resources/students/studentModel')
+const { model: Project } = require('../resources/projects/projectModel')
+const { model: User } = require('../resources/users/userModel')
 
 exports.truncate = async () => {
-  await Cohort.deleteMany();
-  await Student.deleteMany();
-  await Project.deleteMany();
-  await User.deleteMany();
-};
+  await Cohort.deleteMany()
+  await Student.deleteMany()
+  await Project.deleteMany()
+  await User.deleteMany()
+}
 
 exports.seed = async () => {
   try {
@@ -18,86 +18,86 @@ exports.seed = async () => {
       {
         title: 'rolodex',
         description: 'A tool used to track students I teach and the projects that they create.',
-        url: '',
-      },
-    ];
+        url: ''
+      }
+    ]
     const projectPromises = projectData.map(async (data) => {
       try {
-        const project = new Project(data);
-        return project.save();
+        const project = new Project(data)
+        return project.save()
       } catch (e) {
-        throw e;
+        throw e
       }
-    });
-    const projects = await Promise.all(projectPromises);
+    })
+    const projects = await Promise.all(projectPromises)
 
     const studentData = [
       {
         firstName: 'Michael',
         lastName: 'Perrotte',
         avatar: '',
-        projects,
+        projects
       },
       {
         firstName: 'Jamie',
         lastName: 'Scott',
         avatar: '',
-        projects: [],
-      },
-    ];
+        projects: []
+      }
+    ]
     const studentPromises = studentData.map(async (data) => {
       try {
-        const student = new Student(data);
-        return student.save();
+        const student = new Student(data)
+        return student.save()
       } catch (e) {
-        throw e;
+        throw e
       }
-    });
-    const students = await Promise.all(studentPromises);
+    })
+    const students = await Promise.all(studentPromises)
 
     const cohortData = [
       {
         year: 2019,
         cohort: 'winter',
         program: 'full-stack-master-class',
-        students,
+        students
       },
       {
         year: 2018,
         cohort: 'fall',
         program: 'full-stack-master-class',
-        students: [],
-      },
-    ];
+        students: []
+      }
+    ]
     const cohortPromises = cohortData.map(async (data) => {
       try {
-        const cohort = new Cohort(data);
-        return cohort.save();
+        const cohort = new Cohort(data)
+        return cohort.save()
       } catch (e) {
-        throw e;
+        throw e
       }
-    });
-    await Promise.all(cohortPromises);
+    })
+    await Promise.all(cohortPromises)
 
     const userData = [
       {
         email: 'test@test.com',
-        password: 'testing',
-      },
-    ];
+        password: 'testing'
+      }
+    ]
     const userPromises = userData.map(async (data) => {
       try {
-        const user = new User(data);
-        return user.save();
+        const user = new User(data)
+        return user.save()
       } catch (e) {
-        throw e;
+        throw e
       }
-    });
-    await Promise.all(userPromises);
+    })
+    await Promise.all(userPromises)
 
-    console.log('Seeding completed.');
+    console.log('Seeding completed.')
   } catch (e) {
-    console.error('Seeding failed...');
-    throw e; // This `throw` will be caught in the server.js file
+    console.error('Seeding failed...')
+    throw e // This `throw` will be caught in the server.js file
   }
-};
+}

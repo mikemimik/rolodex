@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
 const cohortSchema = exports.schema = new Schema({
   year: Number,
@@ -11,16 +11,16 @@ const cohortSchema = exports.schema = new Schema({
       'spring',
       'summer',
       'fall',
-      'winter',
-    ],
+      'winter'
+    ]
   },
   program: String,
   students: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Students',
-    },
-  ],
-});
+      ref: 'Students'
+    }
+  ]
+})
 
 exports.model = mongoose.model('Cohorts', cohortSchema);
