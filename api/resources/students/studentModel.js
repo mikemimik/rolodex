@@ -3,13 +3,20 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const { schema: projectSchema } = require('../projects/projectModel')
+const serializeFactory = require('../../utils/serialize')
 
 const studentSchema = exports.schema = new Schema({
   firstName: String,
   lastName: String,
   avatar: String,
-  projects: [projectSchema]
+  projects: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Project'
+    }
+  ]
 })
 
-exports.model = mongoose.model('Students', studentSchema)
+studentSchema.method('serialize', serializeFactory())
+
+exports.model = mongoose.model('Student', studentSchema)

@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const { Schema } = mongoose
 
+const serializeFactory = require('../../utils/serialize')
+
 const userSchema = exports.schema = new Schema({
   email: {
     type: String,
@@ -36,4 +38,6 @@ userSchema.method('comparePassword', function (password) {
   return bcrypt.compare(password, this.password)
 })
 
-exports.model = mongoose.model('Users', userSchema)
+userSchema.method('serialize', serializeFactory(['password']))
+
+exports.model = mongoose.model('User', userSchema)

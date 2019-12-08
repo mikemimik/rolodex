@@ -3,6 +3,8 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
+const serializeFactory = require('../../utils/serialize')
+
 const cohortSchema = exports.schema = new Schema({
   year: Number,
   cohort: {
@@ -18,9 +20,11 @@ const cohortSchema = exports.schema = new Schema({
   students: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Students'
+      ref: 'Student'
     }
   ]
 })
 
-exports.model = mongoose.model('Cohorts', cohortSchema);
+cohortSchema.method('serialize', serializeFactory())
+
+exports.model = mongoose.model('Cohort', cohortSchema)

@@ -3,14 +3,18 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-// const { schema: studentSchema } = require('../students/studentModel');
+const serializeFactory = require('../../utils/serialize')
 
 const projectSchema = exports.schema = new Schema({
   title: String,
   description: String,
-  url: String
-  // NOTE(mperrotte): this creates a circular dependency to studentModel.js
-  // student: studentSchema,
+  url: String,
+  student: {
+    type: Schema.Types.ObjectId,
+    ref: 'Student'
+  }
 })
 
-exports.model = mongoose.model('Projects', projectSchema)
+projectSchema.method('serialize', serializeFactory())
+
+exports.model = mongoose.model('Project', projectSchema)
