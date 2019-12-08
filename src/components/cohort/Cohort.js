@@ -53,10 +53,9 @@ class Cohort extends PureComponent {
           'Authorization': `Bearer ${token}`,
         },
       });
-      const responseData = await response.json();
-      const students = get(responseData, 'data[0].students');
+      const students = await response.json();
       console.log('students:', students);
-      this.props.onFetchStudents(cohortId, students);
+      this.props.onFetchStudents(cohortId, students.data);
       console.groupEnd();
     } catch (e) {
       console.error(e);
