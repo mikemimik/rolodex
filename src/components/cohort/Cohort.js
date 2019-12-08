@@ -26,7 +26,7 @@ import Page from '../Page';
 const styles = (theme) => ({
   root: {},
   margin: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
   },
   inline: {
     display: 'inline',
