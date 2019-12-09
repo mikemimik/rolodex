@@ -2,14 +2,18 @@
 
 const _ = require('lodash')
 
-const BLACKLIST = ['_id', '__v']
+const BLACKLIST = ['__v']
+const CONVERTLIST = {
+  _id: 'id',
+}
 
 module.exports = function factory (ADDITIONAL_KEYS = []) {
   return function serialize () {
-    const keys = Object.keys(this)
+    const keys = Object.keys(this._doc)
     const validKeys = _.difference(keys, [].concat(BLACKLIST, ADDITIONAL_KEYS))
     return validKeys.reduce((serializedObject, key) => {
-      serializedObject[key] = this[key]
+      const newKey = CONVERTLIST[key] || key
+      serializedObject[newKey] = this[key]
       return serializedObject
     }, {})
   }
