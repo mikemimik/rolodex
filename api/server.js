@@ -14,6 +14,7 @@ const errorHandlers = require('./middleware/errorHandlers')
 const { router: cohortRoutes } = require('./resources/cohorts/cohortRoutes')
 const { router: userRoutes } = require('./resources/users/userRoutes')
 const { router: studentRoutes } = require('./resources/students/studentRoutes')
+const { router: projectRoutes } = require('./resources/projects/projectRoutes')
 
 const { PORT, URL } = require('./utils/constants')
 
@@ -25,6 +26,7 @@ applyMiddleware(middleWare, app)
 app.use('/api/cohorts', cohortRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/students', studentRoutes)
+app.use('/api/projects', projectRoutes)
 
 applyMiddleware(errorHandlers, app)
 
