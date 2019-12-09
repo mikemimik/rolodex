@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
 
 import {
   Button,
   MenuItem,
   TextField,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import { listTabs, handleTabChange } from '../Tabs';
-import { getToken } from '../../services/tokenService';
-import Header from '../Header';
-import Page from '../Page';
+import { listTabs, handleTabChange } from '../Tabs'
+import { getToken } from '../../services/tokenService'
+import Header from '../Header'
+import Page from '../Page'
 
 const styles = (theme) => ({
   root: {},
@@ -26,54 +26,56 @@ const styles = (theme) => ({
   menu: {
     width: 200,
   },
-});
+})
 export const CohortTypes = [
   'spring',
   'summer',
   'fall',
   'winter',
-];
+]
 
 class CreateCohort extends PureComponent {
   state = {
     nextCohort: {
-      cohort: null,
+      cohort: '',
       program: '',
-      year: null,
+      year: '',
     },
   };
 
-  submit = async () => {
+  handleSubmit = async () => {
     try {
-      const { history } = this.props;
-      const { nextCohort } = this.state;
-      const token = getToken();
-      await fetch('/api/cohorts', {
+      const { history } = this.props
+      const { nextCohort } = this.state
+      const token = getToken()
+      const response = await fetch('/api/cohorts', {
         method: 'POST',
         body: JSON.stringify(nextCohort),
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      });
-      return history.push({ pathname: '/cohorts' });
+      })
+      const cohort = await response.json()
+      this.props.onCreateCohort(cohort.data)
+      return history.push({ pathname: '/cohorts' })
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   };
 
   handleInputChange = (prop) => ({ target: { id, value } }) => {
-    console.groupEnd();
-    const currentCohort = this.state.nextCohort;
-    const nextCohort = { [prop]: value };
+    console.groupEnd()
+    const currentCohort = this.state.nextCohort
+    const nextCohort = { [prop]: value }
     this.setState({
       nextCohort: Object.assign({}, currentCohort, nextCohort),
-    });
+    })
   };
 
   renderHeader = (props) => (
     <Header
-      currentView={'cohorts.create'}
+      currentView='cohorts.create'
       handleTabChange={handleTabChange}
       tabs={listTabs([
         'cohorts.view',
@@ -83,8 +85,13 @@ class CreateCohort extends PureComponent {
     />
   )
 
+  componentDidMount () {
+    console.group('CreateCohort::componentDidMount')
+    console.groupEnd()
+  }
+
   render () {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <>
         {this.renderHeader(this.props)}
@@ -135,19 +142,20 @@ class CreateCohort extends PureComponent {
               variant='contained'
               color='primary'
               className={classes.submit}
-              onClick={this.submit}
+              onClick={this.handleSubmit}
             >
               Create Cohort
             </Button>
           </form>
         </Page>
       </>
-    );
+    )
   }
 }
 
 CreateCohort.propTypes = {
   classes: PropTypes.object,
   history: PropTypes.object,
-};
-export default withStyles(styles)(CreateCohort);
+  onCreateCohort: PropTypes.func,
+}
+export default withStyles(styles)(CreateCohort)

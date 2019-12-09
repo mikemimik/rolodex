@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
 import {
   AppBar,
   Tabs,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
 class Header extends PureComponent {
   render () {
@@ -13,14 +13,18 @@ class Header extends PureComponent {
       tabs,
       handleTabChange,
       appState,
-    } = this.props;
+    } = this.props
 
     return (
       <AppBar position='static' color='default'>
         <Tabs
           value={currentView}
           onChange={(event, value) => {
-            handleTabChange.call(this, event, value, appState);
+            console.group('Header::onChange')
+            console.log('this:', this)
+            console.log('appState:', appState)
+            console.groupEnd()
+            handleTabChange.call(this, event, value, appState)
           }}
           indicatorColor='primary'
           textColor='primary'
@@ -29,7 +33,7 @@ class Header extends PureComponent {
           {tabs}
         </Tabs>
       </AppBar>
-    );
+    )
   }
 }
 
@@ -44,6 +48,6 @@ Header.propTypes = {
   ]),
   handleTabChange: PropTypes.func,
   appState: PropTypes.object,
-};
+}
 
-export default Header;
+export default Header

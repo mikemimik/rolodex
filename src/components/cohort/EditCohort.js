@@ -1,18 +1,18 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { get } from 'lodash';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import { get } from 'lodash'
 
 import {
   Button,
   MenuItem,
   TextField,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import { listTabs, handleTabChange } from '../Tabs';
-import { getToken } from '../../services/tokenService';
-import Header from '../Header';
-import Page from '../Page';
+import { listTabs, handleTabChange } from '../Tabs'
+import { getToken } from '../../services/tokenService'
+import Header from '../Header'
+import Page from '../Page'
 
 const styles = (theme) => ({
   root: {},
@@ -27,56 +27,51 @@ const styles = (theme) => ({
   menu: {
     width: 200,
   },
-});
+})
 export const CohortTypes = [
   'spring',
   'summer',
   'fall',
   'winter',
-];
+]
 
 class EditCohort extends PureComponent {
   constructor (props) {
-    super(props);
-    const cohort = get(props, 'location.state.cohort', {
-      cohort: null,
-      program: '',
-      year: null,
-    });
-
+    super(props)
+    const { cohort } = props
     this.state = {
       cohort,
-    };
+    }
   }
 
-  submit = async () => {
+  handleSubmit = async () => {
     try {
-      const { history } = this.props;
-      const { cohort } = this.state;
-      const token = getToken();
+      const { history } = this.props
+      const { cohort } = this.state
+      const token = getToken()
       const response = await fetch(`/api/cohorts/${cohort._id}`, {
         method: 'PUT',
         body: JSON.stringify(cohort),
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      });
-      const cohorts = await response.json();
-      console.log('cohorts:', cohorts);
-      await this.props.onFetchCohorts(cohorts.data);
-      return history.push({ pathname: '/cohorts' });
+      })
+      const cohorts = await response.json()
+      console.log('cohorts:', cohorts)
+      await this.props.onFetchCohorts(cohorts.data)
+      return history.push({ pathname: '/cohorts' })
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   };
 
   handleInputChange = (prop) => ({ target: { id, value } }) => {
-    const currentCohort = this.state.cohort;
-    const nextCohort = { [prop]: value };
+    const currentCohort = this.state.cohort
+    const nextCohort = { [prop]: value }
     this.setState({
       cohort: Object.assign({}, currentCohort, nextCohort),
-    });
+    })
   };
 
   renderHeader = (props) => (
@@ -91,7 +86,7 @@ class EditCohort extends PureComponent {
   )
 
   render () {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <>
         {this.renderHeader(this.props)}
@@ -142,21 +137,22 @@ class EditCohort extends PureComponent {
               variant='contained'
               color='primary'
               className={classes.submit}
-              onClick={this.submit}
+              onClick={this.handleSubmit}
             >
               Edit Cohort
             </Button>
           </form>
         </Page>
       </>
-    );
+    )
   }
 }
 
 EditCohort.propTypes = {
   classes: PropTypes.object,
   history: PropTypes.object,
+  cohort: PropTypes.object,
   onFetchCohorts: PropTypes.func,
-};
+}
 
-export default withStyles(styles)(EditCohort);
+export default withStyles(styles)(EditCohort)

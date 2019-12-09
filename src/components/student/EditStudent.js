@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { get } from 'lodash';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import { get } from 'lodash'
 
 import {
   Button,
   TextField,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
-import { listTabs, handleTabChange } from '../Tabs';
-import { getToken } from '../../services/tokenService';
-import Header from '../Header';
-import Page from '../Page';
+import { listTabs, handleTabChange } from '../Tabs'
+import { getToken } from '../../services/tokenService'
+import Header from '../Header'
+import Page from '../Page'
 
 const styles = (theme) => ({
   root: {},
@@ -26,50 +26,52 @@ const styles = (theme) => ({
   menu: {
     width: 200,
   },
-});
+})
 
 class EditStudent extends PureComponent {
   constructor (props) {
-    super(props);
+    super(props)
     const student = get(props, 'location.state.student', {
       firstName: '',
       lastName: '',
-    });
+    })
 
     this.state = {
       student,
-    };
+    }
   }
 
-  submit = async () => {
+  handleSubmit = async () => {
+    console.group('EditStudent::handleSubmit')
     try {
-      const { history } = this.props;
-      const { student } = this.state;
-      const token = getToken();
-      const cohortId = get(this.props, 'match.params.cohortId');
+      const { history } = this.props
+      const { student } = this.state
+      const token = getToken()
+      const cohortId = get(this.props, 'match.params.cohortId')
       const response = await fetch(`/api/students/${student._id}`, {
         method: 'PUT',
         body: JSON.stringify(student),
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      });
-      const students = await response.json();
-      console.log('students:', students);
-      await this.props.onFetchStudents(cohortId, students.data);
-      return history.push({ pathname: `/cohorts/${cohortId}` });
+      })
+      const students = await response.json()
+      console.log('students:', students)
+      await this.props.onFetchStudents(cohortId, students.data)
+      console.groupEnd()
+      return history.push({ pathname: `/cohorts/${cohortId}` })
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
   };
 
   handleInputChange = (prop) => ({ target: { id, value } }) => {
-    const currentStudent = this.state.student;
-    const nextStudent = { [prop]: value };
+    const currentStudent = this.state.student
+    const nextStudent = { [prop]: value }
     this.setState({
       student: Object.assign({}, currentStudent, nextStudent),
-    });
+    })
   };
 
   renderHeader = (props) => (
@@ -83,8 +85,13 @@ class EditStudent extends PureComponent {
     />
   )
 
+  componentDidMount () {
+    console.group('EditStudent::componentDidMount')
+    console.groupEnd()
+  }
+
   render () {
-    const { classes } = this.props;
+    const { classes } = this.props
     return (
       <>
         {this.renderHeader(this.props)}
@@ -111,14 +118,14 @@ class EditStudent extends PureComponent {
               variant='contained'
               color='primary'
               className={classes.submit}
-              // onClick={this.submit}
+              onClick={this.handleSubmit}
             >
               Edit Cohort
             </Button>
           </form>
         </Page>
       </>
-    );
+    )
   }
 }
 
@@ -126,6 +133,6 @@ EditStudent.propTypes = {
   classes: PropTypes.object,
   history: PropTypes.object,
   onFetchStudents: PropTypes.func,
-};
+}
 
-export default withStyles(styles)(EditStudent);
+export default withStyles(styles)(EditStudent)
