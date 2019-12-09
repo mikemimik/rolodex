@@ -44,6 +44,7 @@ router.route('/:cohortId')
       } else {
         res.status(404).json({ data: [] })
       }
+      logRequest(req, res)
     } catch (e) {
       next(e)
     }
@@ -63,7 +64,6 @@ router.route('/:cohortId')
 // GET /cohorts/:cohortId/students
 router.route('/:cohortId/students')
   .get(async (req, res, next) => {
-    console.group('CohortRoutes::GET /:cohortId/students')
     try {
       const { cohortId } = req.params
       const students = await cohortService.getCohortStudents(cohortId)
@@ -73,7 +73,6 @@ router.route('/:cohortId/students')
     } catch (e) {
       next(e)
     }
-    console.groupEnd()
   })
 
 exports.router = router
