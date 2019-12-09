@@ -15,9 +15,9 @@ exports.getCohortStudents = async (id) => {
     const cohort = await Cohort
       .findById(id)
       .populate('students')
-    console.log('cohortData:', cohort)
-    const { students } = cohort
-    return students
+    return (cohort)
+      ? cohort.students
+      : []
   } catch (e) {
     throw e
   }
@@ -40,6 +40,7 @@ exports.listCohorts = async ({ filter, include } = { filter: {} }) => {
 exports.createCohort = async (cohortData) => {
   try {
     const cohort = new Cohort(cohortData)
+    await cohort.validate()
     return cohort.save()
   } catch (e) {
     throw e
