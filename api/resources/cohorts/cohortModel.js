@@ -6,23 +6,30 @@ const { Schema } = mongoose
 const serializeFactory = require('../../utils/serialize')
 
 const cohortSchema = exports.schema = new Schema({
-  year: Number,
+  year: {
+    type: Number,
+    required: true,
+  },
   cohort: {
     type: String,
     enum: [
       'spring',
       'summer',
       'fall',
-      'winter'
-    ]
+      'winter',
+    ],
+    required: true,
   },
-  program: String,
+  program: {
+    type: String,
+    required: true,
+  },
   students: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Student'
-    }
-  ]
+      ref: 'Student',
+    },
+  ],
 })
 
 cohortSchema.method('serialize', serializeFactory())

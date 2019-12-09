@@ -6,13 +6,20 @@ const { Schema } = mongoose
 const serializeFactory = require('../../utils/serialize')
 
 const projectSchema = exports.schema = new Schema({
-  title: String,
-  description: String,
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   url: String,
   student: {
     type: Schema.Types.ObjectId,
-    ref: 'Student'
-  }
+    ref: 'Student',
+    required: true,
+  },
 })
 
 projectSchema.method('serialize', serializeFactory())
