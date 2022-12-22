@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "fast-redact": "^2.0.0",
     "init-package-json": "^1.10.3",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.12",
     "p-map": "^3.0.0",
